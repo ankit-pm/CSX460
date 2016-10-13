@@ -1,7 +1,7 @@
 ---
 title: "Assingment NYC Flight Data"
-author: "Your Name Here"
-date: "October 5, 2016"
+author: "Ankit Raheja"
+date: "October 11, 2016"
 output: html_document
 ---
 
@@ -18,7 +18,10 @@ Your job is to create a "rectangular" table useful for modeling from flight data
 Using the `readr` package read the `flights` data.
 
 ```{r}
-
+flights<-readr::read_csv("C:/Users/araheja/CSX460/02-fundamentals/data/flights.csv")
+airports<-readr::read_csv("C:/Users/araheja/CSX460/02-fundamentals/data/airports.csv")
+weather<-readr::read_csv("C:/Users/araheja/CSX460/02-fundamentals/data/weather.csv")
+planes<-readr::read_csv("C:/Users/araheja/CSX460/02-fundamentals/data/planes.csv")
 
 ```
 
@@ -27,6 +30,8 @@ Using the `readr` package read the `flights` data.
 Plot a histogram of arrival delays and departure delays 
 
 ```{r}
+hist(flights$arr_delay,main = "Arrival Delay Histogram",xlab = "delay")
+hist(flights$dep_delay,main = "Departure Delay Histogram",xlab = "delay")
 
 ```
 
@@ -35,7 +40,7 @@ Plot a histogram of arrival delays and departure delays
 Plot a scatterplot of date vs arrival delay 
 
 ```{r}
-
+plot(as.Date(flights$time_hour),flights$arr_delay,main = "scatterplot of date vs arrival delay",xlab = "Date",ylab = "Time")
 ```
 
 
@@ -45,7 +50,7 @@ Plot a scatterplot of date vs arrival delay
 Create a `table` of occurences of origin airports and carrier.
 
 ```{r}
-
+table(flights$origin,flights$carrier)
 
 ```
 
@@ -55,6 +60,8 @@ Create a `table` of occurences of origin airports and carrier.
 **Read** in the other data sets. Use methods to join the data together to create a single table containing one record per row.  (HINT: see `?data.table` or `?dplyr::join`)
 
 ```{r}
+library(dplyr)
+left_join(x=flights,y=airports,by = c("origin"="faa"))%>%left_join(.,y=airports,by = c("dest"="faa"))%>%left_join(.,y=planes,by = c("tailnum"="tailnum"))%>%left_join(.,y=weather,by = c("month", "day", "origin", "hour"))
 
 ```
 
