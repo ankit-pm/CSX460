@@ -1,12 +1,13 @@
 ---
 title: "NYCFlights: Arrival Delay Regression Model"
-author: "[Your Name]"
-date: "[Today's Date]"
+author: "Ankit Rahejs"
+date: "10/19/2016"
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(psych)
 ```
 
 # NYCFlights Model
@@ -18,6 +19,7 @@ for building a model. Describe/Explain each of the steps and show all work in co
 ## Step 1: Collect Data 
 
 ```{r "Step 1: Collect Data" }
+ NYCFlight<-copy(finaltable)
 
 ```
 
@@ -26,15 +28,21 @@ for building a model. Describe/Explain each of the steps and show all work in co
 
 One of the things not done in the MLwR text is a pairwise comparison between the response and each of the predictors. Make sure to do this; this is often very illustrative of the relationship between that predictor and the response. This can be done with `pairs` or `psych::panel.pairs`
 
+arrival delay
+
 
 ```{r "Step 2: Explore and Prep The Data" }
+summary(NYCFlight$arr_delay)  # We look at how response variable is distributed
+hist(NYCFlight$arr_delay)  # We look at arrival delay using the histogram
+NYCFlight<-NYCFlight %>% sample_n(1e3)
 
+pairs.panels(NYCFlight[c("arr_delay","dep_delay","engines","temp","visib","wind_speed","distance","air_time","carrier")])
 ```
 
 ## Step 3:  Train The Model
 
 ```{r "Step 3: Train The Model" }
-
+m<-lm(arr_delay~dep_delay+engines+temp+visib+wind_speed+distance+air_time+carrier,data = finaltable)
 ```
 
 ## Step 4: Evaluate Performance
@@ -42,7 +50,7 @@ One of the things not done in the MLwR text is a pairwise comparison between the
 Evaluating performance is a crutial step, that has yet to be treated well by the MLwR. Think about some of the tools that you have for evaluating performance.  Choose one and articulate why you have chosen it.
 
 ```{r "Step 4: Evaluate Performance" }
-
+  summary(m)
 ```
 
 

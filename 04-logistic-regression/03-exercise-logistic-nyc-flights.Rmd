@@ -1,12 +1,13 @@
 ---
 title: "NYCFlights: Arrival Delay Logictic Model"
-author: "[Your Name]"
-date: "[Today's Date]"
+author: "Ankit Raheja"
+date: "10/23/2016"
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
 ```
 
 
@@ -24,6 +25,18 @@ knitr::opts_chunk$set(echo = TRUE)
 **Hint:** For plotting curves see `?graphics::curve` or `?ggplot2::stat_function`
 
 ```{r "Logistic and Inverse Logistic" }
+logisticFunc<- function(x){y<-(1)/(1+exp(-x))
+return(y)}
+x<--10:10
+plot(x,logisticFunc(x),main = "Logistic Function for -10 to 10")
+m<-0:1
+
+InverseLogisticFunc<-function(m){InverseLogistic<-exp(m)/(1+exp(m))
++ return(InverseLogistic)}
+
+b<-seq(from=0, to=1, by=0.02)
+plot(b,logisticFunction(b),main = "Plot of Inverse Logistic")
+
 
 ```
 
@@ -37,6 +50,9 @@ KNIT YOUR DOCUMENT AS *HTML* AND SUBMIT IT AND THE `Rmd` file.
 ## Step 1: Collect Data 
 
 ```{r "Step 1: Collect Data" }
+InputData<-read.csv("NYCFlightmodel.csv")
+InputData$arr_delayBoolean<-ifelse(InputData$arr_delay>=15,1,0)
+InputData$arr_delayBoolean<-as.factor(InputData$arr_delayBoolean)
 
 ```
 
