@@ -11,8 +11,7 @@ library(readr)
 library(ggplot2)
 library(magrittr)
 library(lubridate)
-library(stringr)
-library(dplyr)
+library(stringr)library(dplyr)   
 library(data.table)
 ```
 
@@ -59,7 +58,7 @@ Plot a scatterplot of date vs arrival delay
 
 First create a date variable from year/month/day:
 
-```{r}
+```{r}?pre
 
 str_pad4 <- . %>% str_pad(4,'left',0)
 str_pad2 <- . %>% str_pad(2,'left',0)
